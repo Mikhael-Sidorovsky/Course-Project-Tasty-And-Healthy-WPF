@@ -1,0 +1,36 @@
+﻿<Window x:Class="TastyAndHealthy.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TastyAndHealthy.Views"
+        mc:Ignorable="d"
+        Title="About" Height="450" Width="800" WindowStartupLocation="CenterScreen"
+        Icon="../Images/about.ico" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="../Images/window_background2.jpg" Stretch="UniformToFill" TileMode="None"/>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.25*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.15*"/>
+        </Grid.RowDefinitions>
+        <FlowDocumentPageViewer Grid.Column="1" Foreground="Wheat" Margin="5">
+            <FlowDocument>
+                <Paragraph x:Name="docText" FontSize="18" Margin="10"/>
+            </FlowDocument>
+        </FlowDocumentPageViewer>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Exit" Content="Exit" Command="{Binding ExitCommand}"/>
+            <Button x:Name="Login" Content="Log in" Grid.Column="1" Command="{Binding LoginCommand}"/>
+        </Grid>
+    </Grid>
+</Window>
