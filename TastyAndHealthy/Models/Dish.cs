@@ -8,7 +8,7 @@ namespace TastyAndHealthy.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<DishProduct> DishProducts { get; set; }
+        public virtual List<DishProduct> DishProducts { get; set; }
         public Dish()
         {
             DishProducts = new List<DishProduct>();

@@ -9,9 +9,9 @@ namespace TastyAndHealthy.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int CategoryID { get; set; }
-        public ProductCategory Category { get; set; }
-        public List<DishProduct> DishProducts { get; set; }
-        public List<ProductBloodType> ProductBloodTypes { get; set; }
+        public virtual ProductCategory Category { get; set; }
+        public virtual List<DishProduct> DishProducts { get; set; }
+        public virtual List<ProductBloodType> ProductBloodTypes { get; set; }
         public Product()
         {
             DishProducts = new List<DishProduct>();

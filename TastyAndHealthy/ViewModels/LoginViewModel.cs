@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using TastyAndHealthy.Commands;
 using TastyAndHealthy.Models;
+using TastyAndHealthy.Resources;
 using TastyAndHealthy.Views;
 
 namespace TastyAndHealthy.ViewModels
@@ -48,28 +49,35 @@ namespace TastyAndHealthy.ViewModels
             try
             {
                 using (TastyAndHealthyContext context = new TastyAndHealthyContext())
-                {
-                    if (context.Users.Where(x => (x.Email == UserLogin || x.Login == UserLogin) && x.Password == Password).Any())
+            {
+                User user = context.Users.Where(x => (x.Email == UserLogin || x.Login == UserLogin)).FirstOrDefault();
+                    if (user != null)
                     {
-                        User user = context.Users.Where(x => (x.Email == UserLogin || x.Login == UserLogin) && x.Password == Password).FirstOrDefault();
-                        MainWindow mainWindow = new MainWindow(user);
-                        mainWindow.Show();
-                        foreach (Window el in Application.Current.Windows)
+                        if (EncryptionUtility.DecryptDate(user.Password) == Password)
                         {
-                            if (el.ToString().Contains("Login"))
+                            MainWindow mainWindow = new MainWindow(user);
+                            mainWindow.Show();
+                            foreach (Window el in Application.Current.Windows)
                             {
-                                el.Close();
-                                break;
+                                if (el.ToString().Contains("Login"))
+                                {
+                                    el.Close();
+                                    break;
+                                }
                             }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid email or password!");
                         }
                     }
                     else
                     {
                         MessageBox.Show("Invalid email or password!");
                     }
-                }
             }
-            catch (Exception) { }
+            }
+            catch (Exception) { MessageBox.Show("Error connection to database!"); }
         }
 
         private bool CanLogin(object obj)

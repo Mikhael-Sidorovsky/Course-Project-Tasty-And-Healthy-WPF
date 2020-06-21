@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using TastyAndHealthy.Commands;
 using TastyAndHealthy.Models;
+using TastyAndHealthy.Resources;
 using TastyAndHealthy.Views;
 
 namespace TastyAndHealthy.ViewModels
@@ -137,12 +138,12 @@ namespace TastyAndHealthy.ViewModels
             {
                 using (TastyAndHealthyContext context = new TastyAndHealthyContext())
                 {
-                    if (!context.Users.Where(x => x.Email == Email && x.Login == Name).Any())
+                    if (!context.Users.Where(x => (x.Email == Email || x.Email == Name || x.Login == Email || x.Login == Name)).Any())
                     {
                         User user = new User();
                         user.Login = Name;
                         user.Email = Email;
-                        user.Password = Password;
+                        user.Password = EncryptionUtility.EncryptData(Password);
                         user.Age = Age;
                         user.Height = Height;
                         user.CurrentWeight = CurrentWeight;
@@ -165,7 +166,10 @@ namespace TastyAndHealthy.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("User with this email already exists!!!");
+                        if (context.Users.Where(x => x.Email == Email).Any())
+                            MessageBox.Show("User with this email already exists!!!");
+                        else
+                            MessageBox.Show("User with this login already exists!!!");
                     }
                 }
             }
@@ -177,8 +181,8 @@ namespace TastyAndHealthy.ViewModels
         {
             if (!IsValidEmail || string.IsNullOrEmpty(Email)
                 || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Name)
-                || Password.Length < 6 || ConfirmPassword != Password 
-                || (Age < 12 && Age > 100) || Height < 0 || CurrentWeight < 0 
+                || Password.Length < 6 || ConfirmPassword != Password
+                || (Age < 12 && Age > 100) || Height < 0 || CurrentWeight < 0
                 || TargetWeight < 0 || BloodType == "" || Sex == "")
                 return false;
             else

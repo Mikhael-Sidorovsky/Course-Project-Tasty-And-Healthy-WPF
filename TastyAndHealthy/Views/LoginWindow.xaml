@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TastyAndHealthy.Views"
+        xmlns:local="clr-namespace:TastyAndHealthy.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Login" Height="250" Width="600" Icon="../Images/Login.ico" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="DarkOliveGreen">
@@ -19,9 +19,15 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Label>Email:</Label>
-        <TextBox Grid.Column="1" x:Name="login" />
+        <TextBox Grid.Column="1" x:Name="login" Text="{Binding Path=UserLogin, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="1">Password:</Label>
-        <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="password"/>
+        <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="password">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged">
+                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=password}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

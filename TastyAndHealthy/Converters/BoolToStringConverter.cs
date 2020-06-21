@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace TastyAndHealthy.Converters
 {
-    class BoolToStringConverter : IValueConverter
+    public class BoolToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

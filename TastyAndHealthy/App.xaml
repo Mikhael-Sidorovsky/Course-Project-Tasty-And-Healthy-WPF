@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TastyAndHealthy"
              xmlns:converters="clr-namespace:TastyAndHealthy.Converters"
-             StartupUri="Views/LoginWindow.xaml">
+             Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
